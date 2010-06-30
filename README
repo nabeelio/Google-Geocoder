@@ -1,0 +1,74 @@
+Google Geocoder Class
+Copyright (c) 2010 Nabeel Shahzad
+http://github.com/nshahzad/Google-Geocoder
+License: MIT
+
+
+Introduction:
+
+For a project I've been working on, I need to get some detailed data 
+about some businesses. So using the Google Geocoder API was a no-brainer. So 
+I just whipped up this quick class :)
+
+
+Requirements:
+
+PHP 5+ w/ cURL and json_decode()
+Google API Key (http://code.google.com/apis/maps/signup.html)
+
+Usage:
+
+define('GOOGLE_KEY', 'Your API Key');
+
+$GEOCODE = new GoogleGeocode(GOOGLE_KEY);
+$params = array(
+	'q' => 'Your address or whatever you want, as much info as possible',
+	'region' => 'optional, default is US',
+	'language' => 'optional, default is en',
+	'oe' => 'optional, default is utf8',
+	'sensor' => 'optional, default is false',
+);
+
+$info = $GEOCODE->search($params);
+
+Or a simple search like:
+
+$info = $GEOCODE->search(array('q' => 'Your address here'));
+
+Or even:
+
+$info = $GEOCODE->search('Your address here');
+
+(Just for flexibility). When entering address, put as much info as you have, like a state or town, etc. It helps narrow it down quite a bit.
+
+$info is an object which looks like:
+
+stdClass Object
+(
+    [lat] => -122.4085364
+    [lng] => 37.7893265
+    [address] => Academy of Art College, San Francisco, CA 94108, USA
+    [state] => CA
+    [city] => San Francisco
+    [zip] => 94108
+)
+
+
+Errors:
+
+If $info === false, then there's an error:
+if($info === false)
+{
+	echo 'ERROR: '.$GEOCODE->error() .' (code: '.$GEOCODE->errno().')';
+}
+
+With the errno() and error() functions, the same as in MySQL
+
+You can also get back the last URL (used in the last query with)
+
+$url = $GEOCODE->query_url();
+
+In case you want to check out what's being sent by hand
+
+That's about it! :)
+
