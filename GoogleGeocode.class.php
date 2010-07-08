@@ -133,12 +133,12 @@ class GoogleGeocode
 		if(is_array($params))
 		{
 			# Form the URL, with the query + code the code
-			$params['q'] = urlencode(trim($params['q']));
+			$params['q'] = trim($params['q']);
 			$params = array_merge($default_params, $params);
 		}
 		else
 		{
-			$default_params['q'] = urlencode(trim($params));
+			$default_params['q'] = trim($params);
 			$params = $default_params;
 		}
 		
